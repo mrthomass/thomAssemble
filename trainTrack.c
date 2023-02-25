@@ -4,11 +4,11 @@
 
 int main(int argc, char *argv[])
 {
-	char *ra = "ATGCCAGTAGGAGCAGGAC";
-	char *rb = "GCAGGACCCA";
+	char *ra = "ACAGTGCCAGTAGGAGCAGGAC";
+	char *rb = "GCCAG";
 	int raLen = strlen(ra);
 	int rbLen = strlen(rb);
-	int minLink = 5;
+	int minLink = 2;
 	
 	
 	int nrep = rbLen - raLen + 1;
@@ -38,27 +38,37 @@ int main(int argc, char *argv[])
 	    repCount++;
 	  }
 	  
-	  printf("check: %i\n", check);
-	  
 		if ((rbLen - minLink) > i)
 		{
-		  if (rb[rbLen - minLink - i] == ra[0])
+		  // check `check` amount of characters
+		  for (int k = 0; k < check; k++)
 		  {
-		    if (rb[rbLen - minLink - i + 1] == ra[0 + 1])
+		    if (rb[rbLen - minLink - i + k] != ra[k])
 		    {
-		      printf("good: %i\n", i);
+		      break;
+		    }
+		    if (k == check - 1)
+		    {
+		      printf("%i Was Worthy\n", i);
 		    }
 		  }
+		  
 		}
 		else
 		{
-		  if (rb[0] == ra[minLink - rbLen + i])
+		  
+		  for (int k = 0; k < check; k++)
 		  {
-		    if (rb[0 + 1] == ra[minLink - rbLen + i + 1])
+		    if (rb[k] != ra[minLink - rbLen + i + k])
 		    {
-		      printf("Good: %i\n", i);
+		      break;
+		    }
+		    if (k == check - 1)
+		    {
+		      printf("%i Was Worthy\n", i);
 		    }
 		  }
 		}
+		
 	}
 }
