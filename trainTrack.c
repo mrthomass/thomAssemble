@@ -2,13 +2,17 @@
 #include <string.h>
 #include <stdlib.h>
 
+// this main, maps two reads onto each other and outputs the combined string
+// in the case of two exact hits it will map to the one with the higher nnm (number of nucleotide matched)
+
+
 int main(int argc, char *argv[])
 {
-	char *ra = "ACAGTGCCAGTAGGAGCAGGAC";
-	char *rb = "GCCAG";
+	char *ra = "TACACTA";
+	char *rb = "GTGTACAC";
 	int raLen = strlen(ra);
 	int rbLen = strlen(rb);
-	int minLink = 2;
+	int minLink = 4;
 	
 	
 	int nrep = rbLen - raLen + 1;
@@ -21,6 +25,8 @@ int main(int argc, char *argv[])
 	
 	int repCount = 0;
   int check = minLink - 1;
+  int nnm = 0;
+  int fin;
 	
 	for (int i = 0; i < raLen + rbLen - 2 * minLink + 1; i++)
 	{
@@ -38,6 +44,14 @@ int main(int argc, char *argv[])
 	    repCount++;
 	  }
 	  
+	  
+	  // test the time of check with or without this here
+	  if (nnm > check - 1)
+	  {
+	    break;
+	  }
+	  // this is a optimization step ^^^ gets rid of redundancy
+	  
 		if ((rbLen - minLink) > i)
 		{
 		  // check `check` amount of characters
@@ -47,9 +61,10 @@ int main(int argc, char *argv[])
 		    {
 		      break;
 		    }
-		    if (k == check - 1)
+		    if (k == check - 1 && check > nnm)
 		    {
-		      printf("%i Was Worthy\n", i);
+		      nnm = check;
+		      fin = i;
 		    }
 		  }
 		  
@@ -63,12 +78,20 @@ int main(int argc, char *argv[])
 		    {
 		      break;
 		    }
-		    if (k == check - 1)
+		    if (k == check - 1 && check > nnm)
 		    {
-		      printf("%i Was Worthy\n", i);
+		      nnm = check;
+		      fin = i;
 		    }
 		  }
 		}
 		
 	}
+	
+	printf("%i\n", fin);
+	
 }
+
+
+
+
