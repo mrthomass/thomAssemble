@@ -26,6 +26,7 @@ int main(int argc, char *argv[])
 	int repCount = 0;
   int check = minLink - 1;
   int nnm = 0;
+  short wasMatch = 0;
   int fin;
 	
 	for (int i = 0; i < raLen + rbLen - 2 * minLink + 1; i++)
@@ -64,6 +65,7 @@ int main(int argc, char *argv[])
 		    if (k == check - 1 && check > nnm)
 		    {
 		      nnm = check;
+		      wasMatch = 1;
 		      fin = i;
 		    }
 		  }
@@ -81,6 +83,7 @@ int main(int argc, char *argv[])
 		    if (k == check - 1 && check > nnm)
 		    {
 		      nnm = check;
+		      wasMatch = 1;
 		      fin = i;
 		    }
 		  }
@@ -88,6 +91,7 @@ int main(int argc, char *argv[])
 		
 	}
 	
+	// if there was a `wasMatch` return the value otherwise return something to say otherwise
 	printf("%i\n", fin);
 	
 }
